@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from chatbot.settings import open_ai_api_key
 
-from chat.models import Chat
+from chat.models import Chat, Conversation
 
 # Create your views here.
 
