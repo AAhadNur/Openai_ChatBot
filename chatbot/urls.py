@@ -7,4 +7,7 @@ urlpatterns = [
 
     # chat app
     path('', include('chat.urls')),
+
+    # user app
+    path('user/', include('user.urls')),
 ]

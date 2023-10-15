@@ -4,15 +4,48 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     {% block styles %}{% endblock %}
   </head>
   <body>
-    {% block content %}{% endblock %}
+
+    {% if messages %}
+    <div id="messages" class="mb-4">
+        {% for message in messages %}
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+                <span class="absolute top-0 bottom-0 right-0 px-4 py-3 close-btn cursor-pointer">
+                    <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.293 5.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 11-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 111.414-1.414L10 8.586l4.293-4.293z"/></svg>
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}
+    
+    {% endblock %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    {% block scripts %}{% endblock %}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const closeButtons = document.querySelectorAll(".close-btn");
+  
+          closeButtons.forEach(function (button) {
+              button.addEventListener("click", function () {
+                  const message = button.closest(".relative");
+                  message.style.display = "none";
+              });
+          });
+      });
+  </script>
+
+    {% block scripts %}
+    
+    {% endblock %}
   </body>
 </html>

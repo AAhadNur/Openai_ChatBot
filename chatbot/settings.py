@@ -1,18 +1,27 @@
-
+import os
 from pathlib import Path
+from decouple import AutoConfig
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+ENV_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ENV_FILE = os.path.join(ENV_BASE_DIR, '..', '.env')
+
+config = AutoConfig(search_path=ENV_FILE)
+
+open_ai_api_key = config('OPENAIAPIKEY')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*yf+i7k83zt*8fnc&oyv*u=a+9oqytr_d*==^riqc-ry%xnt(y'
+
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -28,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'chat',
+    'user',
 ]
 
 MIDDLEWARE = [
